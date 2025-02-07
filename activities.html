@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities at the Cliffs</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #selected-activities {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #4977D1;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Great Cliffs Logo" width="150" height="auto">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Activities</h1>
+        <p>Select an activity to see it listed below.</p>
+        <table border="1" id="activities-table">
+            <caption>Activities at the Cliffs</caption>
+            <thead>
+                <tr>
+                    <th>Activity</th>
+                    <th>Description</th>
+                    <th>Difficulty Level</th>
+                    <th>Duration</th>
+                    <th>Cost</th>
+                    <th>Cliff</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-cliff="West Cliff">
+                    <td>Hiking</td>
+                    <td>Explore the scenic trails of the cliffs.</td>
+                    <td>Medium</td>
+                    <td>3 hours</td>
+                    <td>$25</td>
+                    <td>West Cliff</td>
+                </tr>
+                <tr data-cliff="North Cliff">
+                    <td>Kayak</td>
+                    <td>Enjoy kayaking in calm river waters.</td>
+                    <td>Easy</td>
+                    <td>2 hours</td>
+                    <td>$40</td>
+                    <td>North Cliff</td>
+                </tr>
+                <tr data-cliff="South Cliff">
+                    <td>Skydiving</td>
+                    <td>Experience an exhilarating freefall over the cliffs.</td>
+                    <td>High</td>
+                    <td>1 hour</td>
+                    <td>$300</td>
+                    <td>South Cliff</td>
+                </tr>
+                <tr data-cliff="East Cliff">
+                    <td>Biking</td>
+                    <td>Ride through the rugged terrains of the cliffs.</td>
+                    <td>Medium</td>
+                    <td>4 hours</td>
+                    <td>$50</td>
+                    <td>East Cliff</td>
+                </tr>
+                <tr data-cliff="West Cliff">
+                    <td>Camping</td>
+                    <td>Stay overnight under the stars at our camping sites.</td>
+                    <td>Easy</td>
+                    <td>Overnight</td>
+                    <td>$60</td>
+                    <td>West Cliff</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="selected-activities">
+            <h2>Selected Activities</h2>
+            <ul id="activity-list"></ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Copyright 2020 :: GreatCliffs.com</p>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            $("#activities-table tbody tr").click(function() {
+                let activity = $(this).find("td:first").text();
+                let cliff = $(this).attr("data-cliff");
+                let listItem = `<li data-activity='${activity}'>${activity} - ${cliff}</li>`;
+
+                if ($(this).hasClass("selected")) {
+                    $(this).removeClass("selected");
+                    $("#activity-list li[data-activity='" + activity + "']").remove();
+                } else {
+                    $(this).addClass("selected");
+                    $("#activity-list").append(listItem);
+                }
+
+                if ($("#activity-list li").length > 0) {
+                    $("#selected-activities").show();
+                } else {
+                    $("#selected-activities").hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
